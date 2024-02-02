@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+  gap: 24px;
+  font-family: 'Exo 2';
+
+  .app {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: end;
+      border: 1px solid lightcoral;
+      border-radius: 20px;
+      padding: 16px;
+      width: 450px;
+
+      input {
+        margin-left: 16px;
+        border: 1px solid lightcoral;
+        padding: 16px;
+        border-radius: 20px;
+
+        &:focus {
+          outline-color: coral;
+        }
+      }
+
+      button {
+        background-color: transparent;
+        border: 1px solid lightcoral;
+        padding: 16px;
+        border-radius: 20px;
+        font-family: 'Exo 2';
+        font-weight: 700;
+
+        &:hover {
+          background-color: lightcoral;
+          color: white;
+        }
+      }
+
+      .error {
+        text-align: end;
+        color: red;
+        height: 20px;
+      }
+    }
+
+    .pictures-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+
+      .image-item {
+        position: relative;
+        place-self: center;
+
+        img {
+          width: 100%;
+        }
+
+        button {
+          background-image: url('../svg/close.svg');
+          width: 24px;
+          height: 24px;
+          background-color: lightcoral;
+          border: 1px solid lightcoral;
+          border-radius: 50%;
+          padding: 15px;
+          background-repeat: no-repeat;
+          background-position: center;
+          position: absolute;
+          right: -14px;
+          top: -15px;
+        }
+      }
+    }
+  }
+}
