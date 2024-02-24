@@ -50,6 +50,8 @@ ol {
         }
       }
 
+
+
       button {
         background-color: transparent;
         border: 1px solid lightcoral;
@@ -76,12 +78,57 @@ ol {
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
 
+      .input-file-container {
+        position: relative;
+        width: 250px;
+        height: 250px;
+
+        * {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+        }
+
+        input {
+          opacity: 0;
+
+          &.dragover+.overlay {
+            border-width: 3px;
+            font-size: 72px;
+            color: lightcoral;
+          }
+        }
+
+        .overlay {
+          background-color: transparent;
+          border: 1px solid lightcoral;
+          border-radius: 20px;
+          z-index: 1;
+          pointer-events: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          color: lightgrey;
+        }
+      }
+
       .image-item {
         position: relative;
         place-self: center;
+        width: 250px;
+        height: 250px;
+        text-align: center;
+        display: flex;
+        align-items: center;
 
         img {
-          width: 100%;
+          width: 250px;
+          height: 250px;
+          object-fit: cover;
         }
 
         button {
