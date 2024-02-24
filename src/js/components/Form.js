@@ -1,28 +1,77 @@
-import Input from './Input';
-
 export default class Form {
-  constructor() {
+  constructor(id) {
+    this.id = id;
+
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.inputOnFocus = this.inputOnFocus.bind(this);
+  }
+
+  inputOnFocus(e) {
+    e.target.nextElementSibling.remove();
+    e.target.removeEventListener('focus', this.inputOnFocus);
+  }
+
+  onFormSubmit(e) {
+    e.preventDefault();
+
+    const isImageTitle = e.target.imageTitle.validity.valid;
+    const isImageUrl = e.target.imageUrl.validity.valid;
+
+    if (!isImageTitle) {
+      this.showError(e.target.imageTitle);
+      return;
+    }
+
+    if (!isImageUrl) {
+      this.showError(e.target.imageUrl);
+      return;
+    }
+
+    e.target.dispatchEvent(
+      new Event('formSubmit', { bubbles: true }),
+    );
+
+    this.element.reset();
+  }
+
+  showError(el) {
+    this.error.textContent = 'Заполните поле';
+    el.after(this.error);
+    el.addEventListener('focus', this.inputOnFocus);
+  }
+
+  init() {
     this.element = document.createElement('form');
+    this.element.setAttribute('id', this.id);
     this.element.setAttribute('autocomplete', 'off');
+    this.element.noValidate = true;
 
-    this.errorMsg = document.createElement('div');
-    this.errorMsg.classList.add('error');
+    this.titleLabel = document.createElement('label');
+    this.titleLabel.textContent = 'Название';
 
-    this.inputName = new Input('Название', 'name').create();
+    this.inputTitle = document.createElement('input');
+    this.inputTitle.setAttribute('name', 'imageTitle');
+    this.inputTitle.required = true;
+    this.titleLabel.append(this.inputTitle);
 
-    this.inputUrl = new Input('Ссылка на изображение', 'url').create();
-    this.inputUrl.append(this.errorMsg);
+    this.urlLabel = document.createElement('label');
+    this.urlLabel.textContent = 'Url картинки';
+
+    this.inputUrl = document.createElement('input');
+    this.inputUrl.setAttribute('name', 'imageUrl');
+    this.inputUrl.required = true;
+    this.urlLabel.append(this.inputUrl);
 
     this.button = document.createElement('button');
     this.button.textContent = 'Добавить';
+    this.button.setAttribute('type', 'submit');
 
-    this.inputOnFocus = this.inputOnFocus.bind(this);
-    this.element.addEventListener('focus', this.inputOnFocus, true);
+    this.error = document.createElement('div');
+    this.error.classList.add('error');
 
-    this.element.append(this.inputName, this.inputUrl, this.button);
-  }
+    this.element.addEventListener('submit', this.onFormSubmit);
+    this.element.append(this.titleLabel, this.urlLabel, this.button);
 
-  inputOnFocus() {
-    this.element.querySelector('.error').textContent = '';
+    return this.element;
   }
 }

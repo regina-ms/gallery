@@ -38,6 +38,7 @@
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
-    "core-js": "^3.35.1"
+    "core-js": "^3.35.1",
+    "nanoid": "^5.0.6"
   }
 }
